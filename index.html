@@ -1157,34 +1157,53 @@
             }
 
             const guestsList = document.getElementById('guestsList');
-            guestsList.innerHTML = group.guests.map((guest, index) => {
-                const dietary = [];
-                if (guest.kosher && guest.kosher.toUpperCase() === 'SI') dietary.push('🕎 Kosher');
-                if (guest.vegetariano && guest.vegetariano.toUpperCase() === 'SI') dietary.push('🥗 Vegetariano');
-                if (guest.vegano && guest.vegano.toUpperCase() === 'SI') dietary.push('🌱 Vegano');
-                
-                const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
-                
-                return `
-                <div class="guest-item">
-                    <div class="guest-name">
-                        ${guest.name}
-                    </div>
-                    ${dietary.length > 0 ? `
-                        <div class="guest-dietary">
-                            ${dietary.map(tag => `<span class="dietary-tag">${tag}</span>`).join('')}
-                        </div>
-                    ` : ''}
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" 
-                                   id="guest-${index}-si" 
-                                   name="guest-${index}" 
-                                   value="si" 
-                                   required>
-                            <label for="guest-${index}-si">Sí, asistiré</label>
-                        </div>
-                        <div class="radio-option">
+guestsList.innerHTML = group.guests.map((guest, index) => {
+    const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
+    
+    return `
+    <div class="guest-item">
+        <div class="guest-name">
+            ${guest.name}
+        </div>
+        <div class="radio-group">
+            <div class="radio-option">
+                <input type="radio" 
+                       id="guest-${index}-si" 
+                       name="guest-${index}" 
+                       value="si" 
+                       onchange="toggleDietary(${index})"
+                       required>
+                <label for="guest-${index}-si">Sí, asistiré</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" 
+                       id="guest-${index}-no" 
+                       name="guest-${index}" 
+                       value="no"
+                       onchange="toggleDietary(${index})">
+                <label for="guest-${index}-no">No podré asistir</label>
+            </div>
+        </div>
+        
+        <!-- Restricciones alimentarias (solo si asiste) -->
+        <div id="dietary-${index}" class="dietary-options" style="display: none; margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 5px;">
+            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Seleccioná si tenés alguna restricción alimentaria:</p>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="checkbox" name="kosher-${index}" value="SI">
+                    <span style="font-size: 14px;">🕎 Kosher</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="checkbox" name="vegetariano-${index}" value="SI">
+                    <span style="font-size: 14px;">🥗 Vegetariano</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="checkbox" name="vegano-${index}" value="SI">
+                    <span style="font-size: 14px;">🌱 Vegano</span>
+                </label>
+            </div>
+        </div>
+    </div>
                             <input type="radio" 
                                    id="guest-${index}-no" 
                                    name="guest-${index}" 
