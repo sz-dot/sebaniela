@@ -997,6 +997,10 @@
                     <div class="save-reminder">
                         <p>💡 <strong>Tip:</strong> Guardá esta página en favoritos o hacé una captura para tener los datos a mano.</p>
                     </div>
+                    
+                    <button onclick="shareViaWhatsApp()" class="whatsapp-btn" style="background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; margin-bottom: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <span style="font-size: 24px;">📱</span> Guarda los detalles en WhatsApp
+</button>
 
                     <div class="calendar-buttons">
                         <button class="calendar-btn" onclick="addToGoogleCalendar()">
@@ -1396,6 +1400,55 @@
 
         function downloadICS() {
             const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Casamiento Sebastián & Daniela//ES
+BEGIN:VEVENT
+...
+END:VCALENDAR`;
+
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'casamiento-sebaniela.ics';
+            link.click();
+        }
+
+        function shareViaWhatsApp() {
+            const mensaje = encodeURIComponent(
+        `🎉 ¡Te invitamos a nuestro festejo! 🎉\n\n` +
+        `Daniela & Sebastián\n` +
+        `📅 Miércoles 14 de Mayo, 2026\n\n` +
+        
+        `💍 CIVIL\n` +
+        `10:30hs\n` +
+        `Registro Civil Central\n` +
+        `Uruguay 753, CABA\n` +
+        `📍 https://maps.google.com/?q=Uruguay+753+CABA\n\n` +
+        
+        `🎊 FESTEJO\n` +
+        `12:30hs\n` +
+        `Basa BAR\n` +
+        `Basavilbaso 1328, CABA\n` +
+        `📍 https://maps.google.com/?q=Basavilbaso+1328+CABA\n\n` +
+        
+        `👕 DRESS CODE\n` +
+        `¡Vení como gustes y estes comodo/a!\n` +
+        `Lo que importa es que vengas 😊\n\n` +
+        
+        `💝 OBSEQUIO\n` +
+        `Alias: SEBANIELA.CASAMIENTO\n\n` +
+        
+        `¡TE ESPERAMOS!\n` +
+    );
+    
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const whatsappUrl = isMobile 
+        ? `whatsapp://send?text=${mensaje}`
+        : `https://web.whatsapp.com/send?text=${mensaje}`;
+    
+    window.open(whatsappUrl, '_blank');
+}
+            
 VERSION:2.0
 PRODID:-//Casamiento Sebastián & Daniela//ES
 BEGIN:VEVENT
