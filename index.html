@@ -37,7 +37,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            background: #FAF7F0;
         }
 
         .hero-image {
@@ -850,22 +849,22 @@
                 <p>Jueves 14 de Mayo 2026<br>
                 Basa BAR<br>
                 Basavilbaso 1328, CABA</p>
-                <span class="highlight">12:30 hs</span>
+                <span class="highlight">13:00 hs</span>
                 <a href="https://maps.app.goo.gl/ZY5YgvNvBt4hgcB89" target="_blank" class="map-link">📍 Ver en Maps</a>
             </div>
 
             <div class="info-card">
                 <div class="info-icon"><img src="icon_vestimenta.png" alt="Dress Code" style="width: 48px; height: 48px;"></div>
                 <h3>Dress Code</h3>
-                <p>¡Venite como gustes y estes comoda/o!</p> 
-                <span class="highlight">Lo que importa es que vengas 🙂</span>
+                <p>Vení como quieras,<br>siempre que estés cómodo</p>
+                <span class="highlight">Lo importante es que vengas</span>
             </div>
 
             <div class="info-card">
                 <div class="info-icon"><img src="icon_regalo.png" alt="Regalo" style="width: 48px; height: 48px;"></div>
                 <h3>Obsequio</h3>
-                <p><span class="highlight">Para nosotros lo más importante es compartir este día con vos.</span> <br>Si igualmente querés hacernos un presente, podes colaborar para nuestra luna de miel a través de este alias o personalmente, como te resulte más cómodo.</p>
-                <span class="highlight">Alias:SEBANIELA.CASAMIENTO</span>
+                <p>Tu presencia es nuestro mejor regalo. Si tu intención igualmente es hacernos un presente, podés darnos transferirnos o efectivo según tu comodidad.</p>
+                <span class="highlight">Alias: SEBANIELA.CASAMIENTO</span>
                 <button class="copy-btn-card" onclick="copyAliasCard()">
                     📋 Copiar
                 </button>
@@ -874,16 +873,20 @@
     </section>
 
     <!-- RSVP Section -->
-<section class="rsvp-section">
-    <div class="rsvp-container">
-        <div style="margin-bottom: 30px; text-align: center;">
-            <p style="margin: 0; font-size: 16px; color: #8B7355; font-weight: 500;">
-                <img src="icon_sobre.png" alt="Mensaje" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;">
-                Recibiste tu código por WhatsApp
-            </p>
-        </div>
-        
-        <h2 class="section-title">Confirmá tu asistencia al festejo</h2>
+    <section class="rsvp-section">
+        <div class="rsvp-container">
+            <div style="margin-bottom: 30px; text-align: center;">
+                <p style="margin: 0; font-size: 16px; color: #8B7355; font-weight: 500;">
+                    <img src="icon_sobre.png" alt="Mensaje" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;">
+                    Recibiste tu código por WhatsApp
+                </p>
+            </div>
+            
+            <h2 class="section-title">Confirmá tu Asistencia al Festejo</h2>
+            
+            <div id="successMessage" class="success-message">
+                ¡Gracias por confirmar! Nos vemos pronto 💕
+            </div>
 
             <div id="errorMessage" class="error-message"></div>
 
@@ -904,16 +907,15 @@
                         style="text-transform: uppercase; text-align: center; font-size: 20px; letter-spacing: 3px;">
                 </div>
                 <button type="button" class="submit-btn" onclick="validateCode()">Acceder a mi Invitación</button>
-                
             </div>
 
             <!-- Step 2: Group confirmation -->
             <div id="groupConfirmStep" style="display: none;">
-              <div class="intimate-message">
-    <p>Este festejo es íntimo y muy especial para nosotros, ya que el 14 de mayo celebramos nuestro aniversario número 15.<br><br>
-    Nuestro deseo es compartir este momento con quienes nos han acompañado a lo largo de todos estos años.<br><br>
-    Por eso, contar con tu confirmación lo antes posible es muy importante para nosotros.</p>
-</div>
+                <div class="intimate-message">
+                    <p>Este festejo es íntimo y muy especial para nosotros, ya que el 14 de mayo celebramos nuestro aniversario número 15.<br><br>
+                    Nuestro deseo es compartir este momento con las personas que más queremos y que nos han acompañado a lo largo de todos estos años.<br><br>
+                    Por eso, contar con tu confirmación lo antes posible es muy importante para nosotros.</p>
+                </div>
 
                 <div class="group-header">
                     <h3 id="groupTitle"></h3>
@@ -1157,58 +1159,50 @@
             }
 
             const guestsList = document.getElementById('guestsList');
-guestsList.innerHTML = group.guests.map((guest, index) => {
-    const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
-    
-    return `
-    <div class="guest-item">
-        <div class="guest-name">
-            ${guest.name}
-        </div>
-        <div class="radio-group">
-            <div class="radio-option">
-                <input type="radio" 
-                       id="guest-${index}-si" 
-                       name="guest-${index}" 
-                       value="si" 
-                       onchange="toggleDietary(${index})"
-                       required>
-                <label for="guest-${index}-si">Sí, asistiré</label>
-            </div>
-            <div class="radio-option">
-                <input type="radio" 
-                       id="guest-${index}-no" 
-                       name="guest-${index}" 
-                       value="no"
-                       onchange="toggleDietary(${index})">
-                <label for="guest-${index}-no">No podré asistir</label>
-            </div>
-        </div>
-        
-        <!-- Restricciones alimentarias (solo si asiste) -->
-        <div id="dietary-${index}" class="dietary-options" style="display: none; margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 5px;">
-            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Seleccioná si tenés alguna restricción alimentaria:</p>
-            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
-                    <input type="checkbox" name="kosher-${index}" value="SI">
-                    <span style="font-size: 14px;">🕎 Kosher</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
-                    <input type="checkbox" name="vegetariano-${index}" value="SI">
-                    <span style="font-size: 14px;">🥗 Vegetariano</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
-                    <input type="checkbox" name="vegano-${index}" value="SI">
-                    <span style="font-size: 14px;">🌱 Vegano</span>
-                </label>
-            </div>
-        </div>
-    </div>
+            guestsList.innerHTML = group.guests.map((guest, index) => {
+                const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
+                
+                return `
+                <div class="guest-item">
+                    <div class="guest-name">
+                        ${guest.name}
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="guest-${index}-si" 
+                                   name="guest-${index}" 
+                                   value="si"
+                                   onchange="toggleDietary(${index})" 
+                                   required>
+                            <label for="guest-${index}-si">Sí, asistiré</label>
+                        </div>
+                        <div class="radio-option">
                             <input type="radio" 
                                    id="guest-${index}-no" 
                                    name="guest-${index}" 
-                                   value="no">
+                                   value="no"
+                                   onchange="toggleDietary(${index})">
                             <label for="guest-${index}-no">No podré asistir</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Restricciones alimentarias (solo si asiste) -->
+                    <div id="dietary-${index}" class="dietary-options" style="display: none; margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 5px;">
+                        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Seleccioná si tenés alguna restricción alimentaria:</p>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                                <input type="checkbox" name="kosher-${index}" value="SI">
+                                <span style="font-size: 14px;">🕎 Kosher</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                                <input type="checkbox" name="vegetariano-${index}" value="SI">
+                                <span style="font-size: 14px;">🥗 Vegetariano</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                                <input type="checkbox" name="vegano-${index}" value="SI">
+                                <span style="font-size: 14px;">🌱 Vegano</span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -1225,30 +1219,14 @@ guestsList.innerHTML = group.guests.map((guest, index) => {
             } else {
                 dietaryDiv.style.display = 'none';
                 // Desmarcar todas las opciones si no asiste
-                document.querySelector(`input[name="kosher-${index}"]`).checked = false;
-                document.querySelector(`input[name="vegetariano-${index}"]`).checked = false;
-                document.querySelector(`input[name="vegano-${index}"]`).checked = false;
+                const kosherCheck = document.querySelector(`input[name="kosher-${index}"]`);
+                const vegetarianoCheck = document.querySelector(`input[name="vegetariano-${index}"]`);
+                const veganoCheck = document.querySelector(`input[name="vegano-${index}"]`);
+                if (kosherCheck) kosherCheck.checked = false;
+                if (vegetarianoCheck) vegetarianoCheck.checked = false;
+                if (veganoCheck) veganoCheck.checked = false;
             }
         }
-
-        function goBack() {
-```
-
----
-
-**Resumen:** Lo agregás entre el `}` de la línea 1216 y el `function goBack()` de la línea 1218.
-
-Quedaría así:
-```
-1215    `}).join('');
-1216        }
-1217        
-1218        // Función para mostrar/ocultar restricciones alimentarias
-1219        function toggleDietary(index) {
-...
-1230        }
-1231
-1232        function goBack() {
 
         function goBack() {
             document.getElementById('groupConfirmStep').style.display = 'none';
@@ -1269,29 +1247,33 @@ Quedaría así:
             const comentarios = document.getElementById('comentarios').value;
 
             const responses = group.guests.map((guest, index) => {
-    const attendance = document.querySelector(`input[name="guest-${index}"]:checked`);
-    const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
-    
-    // Obtener restricciones alimentarias solo si asiste
-    let kosher = 'NO';
-    let vegetariano = 'NO';
-    let vegano = 'NO';
-    
-    if (attendance && attendance.value === 'si') {
-        kosher = document.querySelector(`input[name="kosher-${index}"]`)?.checked ? 'SI' : 'NO';
-        vegetariano = document.querySelector(`input[name="vegetariano-${index}"]`)?.checked ? 'SI' : 'NO';
-        vegano = document.querySelector(`input[name="vegano-${index}"]`)?.checked ? 'SI' : 'NO';
-    }
-    
-    return {
-        nombre: guest.name,
-        asiste: attendance ? (attendance.value === 'si' ? 'SI' : 'NO') : 'NO RESPONDE',
-        tipo: isChild ? 'Niño' : 'Adulto',
-        kosher: kosher,
-        vegetariano: vegetariano,
-        vegano: vegano
-    };
-});
+                const attendance = document.querySelector(`input[name="guest-${index}"]:checked`);
+                const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
+                
+                // Obtener restricciones alimentarias solo si asiste
+                let kosher = 'NO';
+                let vegetariano = 'NO';
+                let vegano = 'NO';
+                
+                if (attendance && attendance.value === 'si') {
+                    const kosherCheck = document.querySelector(`input[name="kosher-${index}"]`);
+                    const vegetarianoCheck = document.querySelector(`input[name="vegetariano-${index}"]`);
+                    const veganoCheck = document.querySelector(`input[name="vegano-${index}"]`);
+                    
+                    kosher = kosherCheck && kosherCheck.checked ? 'SI' : 'NO';
+                    vegetariano = vegetarianoCheck && vegetarianoCheck.checked ? 'SI' : 'NO';
+                    vegano = veganoCheck && veganoCheck.checked ? 'SI' : 'NO';
+                }
+                
+                return {
+                    nombre: guest.name,
+                    asiste: attendance ? (attendance.value === 'si' ? 'SI' : 'NO') : 'NO RESPONDE',
+                    tipo: isChild ? 'Niño' : 'Adulto',
+                    kosher: kosher,
+                    vegetariano: vegetariano,
+                    vegano: vegano
+                };
+            });
 
             // Datos a enviar al Google Apps Script
             const dataToSend = {
