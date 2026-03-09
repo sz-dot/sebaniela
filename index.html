@@ -1215,6 +1215,41 @@ guestsList.innerHTML = group.guests.map((guest, index) => {
             `}).join('');
         }
 
+        // Función para mostrar/ocultar restricciones alimentarias
+        function toggleDietary(index) {
+            const asiste = document.getElementById(`guest-${index}-si`).checked;
+            const dietaryDiv = document.getElementById(`dietary-${index}`);
+            
+            if (asiste) {
+                dietaryDiv.style.display = 'block';
+            } else {
+                dietaryDiv.style.display = 'none';
+                // Desmarcar todas las opciones si no asiste
+                document.querySelector(`input[name="kosher-${index}"]`).checked = false;
+                document.querySelector(`input[name="vegetariano-${index}"]`).checked = false;
+                document.querySelector(`input[name="vegano-${index}"]`).checked = false;
+            }
+        }
+
+        function goBack() {
+```
+
+---
+
+**Resumen:** Lo agregás entre el `}` de la línea 1216 y el `function goBack()` de la línea 1218.
+
+Quedaría así:
+```
+1215    `}).join('');
+1216        }
+1217        
+1218        // Función para mostrar/ocultar restricciones alimentarias
+1219        function toggleDietary(index) {
+...
+1230        }
+1231
+1232        function goBack() {
+
         function goBack() {
             document.getElementById('groupConfirmStep').style.display = 'none';
             document.getElementById('codeEntryStep').style.display = 'block';
