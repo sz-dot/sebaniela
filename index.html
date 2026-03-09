@@ -883,7 +883,7 @@
             </p>
         </div>
         
-        <h2 class="section-title">Confirmá tu Asistencia al Festejo</h2>
+        <h2 class="section-title">Confirmá tu asistencia al festejo</h2>
 
             <div id="errorMessage" class="error-message"></div>
 
@@ -909,9 +909,11 @@
 
             <!-- Step 2: Group confirmation -->
             <div id="groupConfirmStep" style="display: none;">
-                <div class="intimate-message">
-                    <p>Este evento es íntimo y especial para nosotros, compartiendo solo con las personas que más queremos. Por eso, contar con tu confirmación lo antes posible es muy importante para nosotros.</p>
-                </div>
+              <div class="intimate-message">
+    <p>Este festejo es íntimo y muy especial para nosotros, ya que el 14 de mayo celebramos nuestro aniversario número 15.<br><br>
+    Nuestro deseo es compartir este momento con quienes nos han acompañado a lo largo de todos estos años.<br><br>
+    Por eso, contar con tu confirmación lo antes posible es muy importante para nosotros.</p>
+</div>
 
                 <div class="group-header">
                     <h3 id="groupTitle"></h3>
@@ -1151,7 +1153,7 @@
             if (group.guests.length === 1) {
                 document.getElementById('groupTitle').textContent = group.guests[0].name;
             } else {
-                document.getElementById('groupTitle').textContent = `Grupo ${code}`;
+                document.getElementById('groupTitle').textContent = `Invitado/s ${code}`;
             }
 
             const guestsList = document.getElementById('guestsList');
