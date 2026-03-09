@@ -849,7 +849,7 @@
                 <p>Jueves 14 de Mayo 2026<br>
                 Basa BAR<br>
                 Basavilbaso 1328, CABA</p>
-                <span class="highlight">13:00 hs</span>
+                <span class="highlight">12:30 hs</span>
                 <a href="https://maps.app.goo.gl/ZY5YgvNvBt4hgcB89" target="_blank" class="map-link">📍 Ver en Maps</a>
             </div>
 
@@ -959,7 +959,7 @@
                             <div class="reminder-icon">💍</div>
                             <div class="reminder-content">
                                 <strong>Civil</strong>
-                                <p>Miércoles 14 de Mayo, 2026 - 10:30 hs<br>
+                                <p>Jueves 14 de Mayo, 2026 - 10:30 hs<br>
                                 Registro Civil Central<br>
                                 Uruguay 753, CABA</p>
                                 <a href="https://maps.app.goo.gl/avFtoZbz2zymVRqv6" target="_blank" style="color: var(--gold); text-decoration: none;">📍 Ver en Google Maps</a>
@@ -969,8 +969,8 @@
                         <div class="reminder-item">
                             <div class="reminder-icon">🎉</div>
                             <div class="reminder-content">
-                                <strong>Fiesta</strong>
-                                <p>Miércoles 14 de Mayo, 2026 - 13:00 hs<br>
+                                <strong>Festejo</strong>
+                                <p>Jueves 14 de Mayo, 2026 - 12:30 hs<br>
                                 Basa BAR<br>
                                 Basavilbaso 1328, CABA</p>
                                 <a href="https://maps.app.goo.gl/ZY5YgvNvBt4hgcB89" target="_blank" style="color: var(--gold); text-decoration: none;">📍 Ver en Google Maps</a>
@@ -1389,7 +1389,7 @@
                 text: 'Casamiento Sebastián & Daniela - Civil',
                 dates: '20260514T103000/20260514T113000',
                 location: 'Registro Civil Central, Uruguay 753, CABA',
-                details: 'Civil: 10:30hs - Registro Civil Central (Uruguay 753)%0AFiesta: 13:00hs - Basa BAR (Basavilbaso 1328)%0ADress Code: Vení como quieras%0AAlias: SEBANIELA.CASAMIENTO'
+                details: 'Civil: 10:30hs - Registro Civil Central (Uruguay 753)%0AFestejo: 12:30hs - Basa BAR (Basavilbaso 1328)%0ADress Code: Vení como quieras%0AAlias: SEBANIELA.CASAMIENTO'
             };
             
             const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.text)}&dates=${eventDetails.dates}&location=${encodeURIComponent(eventDetails.location)}&details=${eventDetails.details}`;
@@ -1406,7 +1406,7 @@ DTSTAMP:${formatDateICS(new Date())}
 DTSTART:20260514T103000
 DTEND:20260514T113000
 SUMMARY:Casamiento Sebastián & Daniela - Civil
-DESCRIPTION:Civil: 10:30hs - Registro Civil Central\\nFiesta: 13:00hs - Basa BAR\\nDress Code: Vení como quieras\\nAlias: SEBANIELA.CASAMIENTO
+DESCRIPTION:Civil: 10:30hs - Registro Civil Central\\nFestejo: 12:30hs - Basa BAR\\nDress Code: Vení como quieras\\nAlias: SEBANIELA.CASAMIENTO
 LOCATION:Registro Civil Central, Uruguay 753, CABA
 BEGIN:VALARM
 TRIGGER:-P1D
@@ -1419,13 +1419,13 @@ UID:${new Date().getTime() + 1}@casamiento-sebaniela.com
 DTSTAMP:${formatDateICS(new Date())}
 DTSTART:20260514T130000
 DTEND:20260514T180000
-SUMMARY:Casamiento Sebastián & Daniela - Fiesta
-DESCRIPTION:Fiesta en Basa BAR\\nDress Code: Vení como quieras\\nAlias: SEBANIELA.CASAMIENTO
+SUMMARY:Casamiento Sebastián & Daniela - Festejo
+DESCRIPTION:Festejo en Basa BAR\\nDress Code: Vení como quieras\\nAlias: SEBANIELA.CASAMIENTO
 LOCATION:Basa BAR, Basavilbaso 1328, CABA
 BEGIN:VALARM
 TRIGGER:-PT2H
 ACTION:DISPLAY
-DESCRIPTION:Recordatorio: Fiesta en 2 horas
+DESCRIPTION:Recordatorio: Festejo en 2 horas
 END:VALARM
 END:VEVENT
 END:VCALENDAR`;
