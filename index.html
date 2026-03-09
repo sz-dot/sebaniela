@@ -1269,23 +1269,29 @@ Quedaría así:
             const comentarios = document.getElementById('comentarios').value;
 
             const responses = group.guests.map((guest, index) => {
-                const attendance = document.querySelector(`input[name="guest-${index}"]:checked`);
-                const dietary = [];
-                if (guest.kosher && guest.kosher.toUpperCase() === 'SI') dietary.push('Kosher');
-                if (guest.vegetariano && guest.vegetariano.toUpperCase() === 'SI') dietary.push('Vegetariano');
-                if (guest.vegano && guest.vegano.toUpperCase() === 'SI') dietary.push('Vegano');
-                
-                const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
-                
-                return {
-                    nombre: guest.name,
-                    asiste: attendance ? (attendance.value === 'si' ? 'SI' : 'NO') : 'NO RESPONDE',
-                    tipo: isChild ? 'Niño' : 'Adulto',
-                    kosher: guest.kosher && guest.kosher.toUpperCase() === 'SI' ? 'SI' : 'NO',
-                    vegetariano: guest.vegetariano && guest.vegetariano.toUpperCase() === 'SI' ? 'SI' : 'NO',
-                    vegano: guest.vegano && guest.vegano.toUpperCase() === 'SI' ? 'SI' : 'NO'
-                };
-            });
+    const attendance = document.querySelector(`input[name="guest-${index}"]:checked`);
+    const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
+    
+    // Obtener restricciones alimentarias solo si asiste
+    let kosher = 'NO';
+    let vegetariano = 'NO';
+    let vegano = 'NO';
+    
+    if (attendance && attendance.value === 'si') {
+        kosher = document.querySelector(`input[name="kosher-${index}"]`)?.checked ? 'SI' : 'NO';
+        vegetariano = document.querySelector(`input[name="vegetariano-${index}"]`)?.checked ? 'SI' : 'NO';
+        vegano = document.querySelector(`input[name="vegano-${index}"]`)?.checked ? 'SI' : 'NO';
+    }
+    
+    return {
+        nombre: guest.name,
+        asiste: attendance ? (attendance.value === 'si' ? 'SI' : 'NO') : 'NO RESPONDE',
+        tipo: isChild ? 'Niño' : 'Adulto',
+        kosher: kosher,
+        vegetariano: vegetariano,
+        vegano: vegano
+    };
+});
 
             // Datos a enviar al Google Apps Script
             const dataToSend = {
