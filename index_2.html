@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniela & Sebastián - Nuestra Boda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FAF7F0;
+            --dark: #2C2C2C;
+            --accent: #8B7355;
+            --gold: #C9A86A;
+            --light-gray: #E8E3DB;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        .initials {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(60px, 15vw, 140px);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 0.3s forwards;
+        }
+
+        .ampersand {
+            font-size: 0.7em;
+            color: var(--gold);
+            margin: 0 20px;
+        }
+
+        .names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 0.6s forwards;
+        }
+
+        .date-banner {
+            display: inline-block;
+            padding: 15px 40px;
+            border-top: 1px solid var(--accent);
+            border-bottom: 1px solid var(--accent);
+            font-size: clamp(14px, 2.5vw, 18px);
+            letter-spacing: 0.2em;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 0.9s forwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 1.2s forwards, bounce 2s ease-in-out 2s infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: var(--accent);
+            margin: 0 auto 10px;
+        }
+
+        .scroll-indicator p {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .section {
+            padding: 100px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 20px auto 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        @media (min-width: 1024px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 2px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .info-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .info-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .info-card p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .info-card .highlight {
+            color: var(--accent);
+            font-weight: 500;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .map-link:hover {
+            color: var(--accent);
+        }
+
+        .copy-btn-card {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn-card:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .regalo-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .regalo-text {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #666;
+        }
+
+        .regalo-card {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .copy-btn-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .copy-btn-main:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .rsvp-section {
+            background: linear-gradient(to bottom, var(--cream) 0%, white 100%);
+            padding: 120px 20px;
+        }
+
+        .rsvp-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px 50px;
+            border-radius: 2px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+            background: var(--cream);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .radio-option label {
+            margin: 0;
+            cursor: pointer;
+            text-transform: none;
+            font-size: 15px;
+            letter-spacing: normal;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .submit-btn:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-btn {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+
+        .back-btn:hover {
+            background: var(--cream);
+        }
+
+        .gift-section {
+            background: var(--dark);
+            color: white;
+            padding: 100px 20px;
+        }
+
+        .gift-section .section-title {
+            color: white;
+        }
+
+        .gift-section .section-title::after {
+            background: var(--gold);
+        }
+
+        .gift-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .gift-text {
+            font-size: 16px;
+            line-height: 2;
+            margin-bottom: 40px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .gift-options {
+            display: grid;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .gift-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 2px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .gift-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .gift-card p {
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background: var(--cream);
+            transform: translateY(-2px);
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .map-link:hover {
+            color: var(--accent);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--cream);
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            color: #999;
+        }
+
+        .success-message, .error-message, .loading-message {
+            display: none;
+            padding: 20px;
+            border-radius: 2px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .success-message {
+            background: #D4EDDA;
+            color: #155724;
+            border: 1px solid #C3E6CB;
+        }
+
+        .error-message {
+            background: #F8D7DA;
+            color: #721C24;
+            border: 1px solid #F5C6CB;
+        }
+
+        .loading-message {
+            background: #D1ECF1;
+            color: #0C5460;
+            border: 1px solid #BEE5EB;
+        }
+
+        .success-message.show, .error-message.show, .loading-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .help-text {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .help-text p {
+            font-size: 14px;
+            color: #999;
+            letter-spacing: 0.05em;
+        }
+
+        .group-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intimate-message {
+            background: #FFF9E6;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .intimate-message p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #666;
+            font-style: italic;
+        }
+
+        .group-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .group-subtitle {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 0.05em;
+        }
+
+        .guests-list {
+            margin-bottom: 40px;
+        }
+
+        .guest-item {
+            background: var(--cream);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 2px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .guest-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .age-badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: var(--gold);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .guest-dietary {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .dietary-tag {
+            background: white;
+            padding: 5px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .success-final {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .success-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .success-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+
+        .event-reminder {
+            background: var(--cream);
+            padding: 40px 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .event-reminder h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .reminder-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .reminder-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .reminder-icon {
+            font-size: 32px;
+            min-width: 40px;
+        }
+
+        .reminder-content {
+            flex: 1;
+        }
+
+        .reminder-content strong {
+            display: block;
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .reminder-content p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #666;
+            margin: 0;
+        }
+
+        .reminder-content small {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .save-reminder {
+            background: #FFF9E6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+            margin-top: 30px;
+        }
+
+        .save-reminder p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .calendar-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .calendar-btn {
+            padding: 12px 25px;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 20px;
+            }
+            .info-grid {
+                gap: 40px;
+            }
+            .rsvp-container {
+                padding: 40px 30px;
+            }
+            .radio-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <picture class="hero-image">
+            <source media="(min-width: 1440px)" srcset="Hero_desktop.png">
+            <source media="(min-width: 744px)" srcset="Hero_tablet.png">
+            <img src="Hero_mobile.png" alt="Daniela & Sebastián - 14 de Mayo 2026" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+        </picture>
+        <div class="hero-content" style="position: relative; z-index: 1;">
+            <div class="scroll-indicator">
+                <span></span>
+                <p>Scroll</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="section">
+        <h2 class="section-title">Detalles del Evento</h2>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon"><img src="icon_civil.png" alt="Civil" style="width: 48px; height: 48px;"></div>
+                <h3>Civil</h3>
+                <p>Jueves 14 de Mayo 2026<br>
+                Registro Civil Central<br>
+                Uruguay 753, CABA</p>
+                <span class="highlight">10:30 hs</span>
+                <a href="https://maps.app.goo.gl/avFtoZbz2zymVRqv6" target="_blank" class="map-link">📍 Ver en Maps</a>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon"><img src="icon_festejo.png" alt="Festejo" style="width: 48px; height: 48px;"></div>
+                <h3>Festejo</h3>
+                <p>Jueves 14 de Mayo 2026<br>
+                Basa BAR<br>
+                Basavilbaso 1328, CABA</p>
+                <span class="highlight">13:00 hs</span>
+                <a href="https://maps.app.goo.gl/ZY5YgvNvBt4hgcB89" target="_blank" class="map-link">📍 Ver en Maps</a>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon"><img src="icon_vestimenta.png" alt="Dress Code" style="width: 48px; height: 48px;"></div>
+                <h3>Dress Code</h3>
+                <p>Vení como quieras,<br>siempre que estés cómodo</p>
+                <span class="highlight">Lo importante es que vengas</span>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon"><img src="icon_regalo.png" alt="Regalo" style="width: 48px; height: 48px;"></div>
+                <h3>Obsequio</h3>
+                <p>Tu presencia es nuestro mejor regalo. Si tu intención igualmente es hacernos un presente, podés darnos transferirnos o efectivo según tu comodidad.</p>
+                <span class="highlight">Alias: SEBANIELA.CASAMIENTO</span>
+                <button class="copy-btn-card" onclick="copyAliasCard()">
+                    📋 Copiar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section class="rsvp-section">
+        <div class="rsvp-container">
+            <h2 class="section-title">Confirmá tu Asistencia al Festejo</h2>
+            
+            <div id="successMessage" class="success-message">
+                ¡Gracias por confirmar! Nos vemos pronto 💕
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+
+            <div id="loadingMessage" class="loading-message">
+                Cargando invitados...
+            </div>
+
+            <!-- Step 1: Code entry -->
+            <div id="codeEntryStep">
+                <div class="form-group">
+                    <label for="inviteCode">Ingresá tu código de invitación</label>
+                    <input 
+                        type="text" 
+                        id="inviteCode" 
+                        placeholder="Ej: INV001" 
+                        autocomplete="off"
+                        maxlength="10"
+                        style="text-transform: uppercase; text-align: center; font-size: 20px; letter-spacing: 3px;">
+                </div>
+                <button type="button" class="submit-btn" onclick="validateCode()">Acceder a mi Invitación</button>
+                
+                <div class="help-text">
+                    <p><img src="icon_sobre.png" alt="Mensaje" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"> Recibiste tu código por WhatsApp</p>
+                </div>
+            </div>
+
+            <!-- Step 2: Group confirmation -->
+            <div id="groupConfirmStep" style="display: none;">
+                <div class="intimate-message">
+                    <p>Este evento es íntimo y especial para nosotros, compartiendo solo con las personas que más queremos. Por eso, contar con tu confirmación lo antes posible es muy importante para nosotros.</p>
+                </div>
+
+                <div class="group-header">
+                    <h3 id="groupTitle"></h3>
+                    <p class="group-subtitle">Confirmá la asistencia de cada persona al festejo:</p>
+                </div>
+
+                <form id="rsvpForm">
+                    <div id="guestsList" class="guests-list"></div>
+
+                    <div class="form-group">
+                        <label for="email">Email de contacto</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono de contacto</label>
+                        <input type="tel" id="telefono" name="telefono" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comentarios">Comentarios Adicionales (Opcional)</label>
+                        <textarea id="comentarios" name="comentarios" placeholder="Ej: Alergias, restricciones adicionales, etc."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Enviar Confirmación</button>
+                    <button type="button" class="back-btn" onclick="goBack()">← Volver</button>
+                </form>
+            </div>
+
+            <!-- Step 3: Success screen -->
+            <div id="successScreen" style="display: none;">
+                <div class="success-final">
+                    <div class="success-icon">💕</div>
+                    <h2 class="success-title">¡Gracias por Confirmar!</h2>
+                    <p class="success-subtitle">No hay vuelta atrás. Ahora estás obligado a venir o perderte esta reunión única 😄</p>
+                    
+                    <div class="event-reminder">
+                        <h3>📅 Recordá los detalles</h3>
+                        
+                        <div class="reminder-item">
+                            <div class="reminder-icon">💍</div>
+                            <div class="reminder-content">
+                                <strong>Civil</strong>
+                                <p>Miércoles 14 de Mayo, 2026 - 10:30 hs<br>
+                                Registro Civil Central<br>
+                                Uruguay 753, CABA</p>
+                                <a href="https://maps.app.goo.gl/avFtoZbz2zymVRqv6" target="_blank" style="color: var(--gold); text-decoration: none;">📍 Ver en Google Maps</a>
+                            </div>
+                        </div>
+
+                        <div class="reminder-item">
+                            <div class="reminder-icon">🎉</div>
+                            <div class="reminder-content">
+                                <strong>Fiesta</strong>
+                                <p>Miércoles 14 de Mayo, 2026 - 13:00 hs<br>
+                                Basa BAR<br>
+                                Basavilbaso 1328, CABA</p>
+                                <a href="https://maps.app.goo.gl/ZY5YgvNvBt4hgcB89" target="_blank" style="color: var(--gold); text-decoration: none;">📍 Ver en Google Maps</a>
+                            </div>
+                        </div>
+
+                        <div class="reminder-item">
+                            <div class="reminder-icon">👕</div>
+                            <div class="reminder-content">
+                                <strong>Dress Code</strong>
+                                <p>Vení como quieras, siempre que estés cómodo<br><small>Lo importante es que vengas</small></p>
+                            </div>
+                        </div>
+
+                        <div class="reminder-item">
+                            <div class="reminder-icon">💝</div>
+                            <div class="reminder-content">
+                                <strong>Obsequio</strong>
+                                <p>Alias: SEBANIELA.CASAMIENTO</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="save-reminder">
+                        <p>💡 <strong>Tip:</strong> Guardá esta página en favoritos o hacé una captura para tener los datos a mano.</p>
+                    </div>
+
+                    <div class="calendar-buttons">
+                        <button class="calendar-btn" onclick="addToGoogleCalendar()">
+                            📅 Agregar a Google Calendar
+                        </button>
+                        <button class="calendar-btn" onclick="downloadICS()">
+                            📆 Descargar para Calendario
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Sebastián & Daniela • 14.05.2026</p>
+    </footer>
+
+    <script>
+        // ========================================
+        // CONFIGURACIÓN - GOOGLE SHEET
+        // ========================================
+        
+        // MÉTODO ALTERNATIVO: Publicar como web
+        // Instrucciones: Archivo → Compartir → Publicar en la web → Publicar
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1-BoL2m-qfUSyx-4hVtjpvcN0WLWdZFCeUUdW006Qk0A/gviz/tq?tqx=out:csv&sheet=Lista%20Invitados';
+
+        let GUEST_GROUPS = {};
+        let currentGroup = null;
+
+        // ========================================
+        // CARGAR DATOS DESDE GOOGLE SHEETS
+        // ========================================
+        
+        async function loadGuestsFromSheet() {
+            const loadingMsg = document.getElementById('loadingMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            try {
+                loadingMsg.classList.add('show');
+                
+                const response = await fetch(SHEET_URL);
+                
+                if (!response.ok) {
+                    throw new Error('No se pudo acceder al Sheet. Asegurate que esté público.');
+                }
+                
+                const text = await response.text();
+                
+                // Parsear CSV manualmente
+                const lines = text.split('\n');
+                
+                // Procesar filas (saltamos el header)
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+                    
+                    // Parsear CSV respetando comillas
+                    const cols = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+                    const cleanCols = cols.map(col => col.replace(/^"|"$/g, '').trim());
+                    
+                    // Columnas: Código, Nombre, Quién, Kosher, Vegetariano, Vegano
+                    const code = cleanCols[0] || null;
+                    const name = cleanCols[1] || null;
+                    const quien = cleanCols[2] || 'Adulto';
+                    const kosher = cleanCols[3] || '';
+                    const vegetariano = cleanCols[4] || '';
+                    const vegano = cleanCols[5] || '';
+                    
+                    if (!code || !name) continue;
+                    
+                    // Crear o agregar al grupo
+                    if (!GUEST_GROUPS[code]) {
+                        GUEST_GROUPS[code] = {
+                            groupName: name,
+                            guests: []
+                        };
+                    }
+                    
+                    GUEST_GROUPS[code].guests.push({
+                        name: name,
+                        quien: quien,
+                        kosher: kosher,
+                        vegetariano: vegetariano,
+                        vegano: vegano
+                    });
+                }
+                
+                loadingMsg.classList.remove('show');
+                console.log('✅ Invitados cargados:', Object.keys(GUEST_GROUPS).length, 'códigos');
+                
+                if (Object.keys(GUEST_GROUPS).length === 0) {
+                    errorMsg.textContent = 'No se pudieron cargar los invitados. Verificá que el Sheet esté público.';
+                    errorMsg.classList.add('show');
+                }
+                
+            } catch (error) {
+                console.error('Error al cargar invitados:', error);
+                errorMsg.textContent = 'Error: El Google Sheet debe estar público. Andá a Compartir → Cualquier persona con el enlace → Lector';
+                errorMsg.classList.add('show');
+                loadingMsg.classList.remove('show');
+            }
+        }
+
+        // ========================================
+        // LÓGICA DEL FORMULARIO
+        // ========================================
+
+        document.getElementById('inviteCode').addEventListener('input', function(e) {
+            this.value = this.value.toUpperCase();
+        });
+
+        document.getElementById('inviteCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateCode();
+            }
+        });
+
+        function validateCode() {
+            const code = document.getElementById('inviteCode').value.trim().toUpperCase();
+            const errorMsg = document.getElementById('errorMessage');
+            
+            if (!code) {
+                errorMsg.textContent = 'Por favor ingresá tu código de invitación';
+                errorMsg.classList.add('show');
+                setTimeout(() => errorMsg.classList.remove('show'), 3000);
+                return;
+            }
+
+            // Verificar si el código ya fue usado
+            if (localStorage.getItem(`codigo_usado_${code}`) === 'true') {
+                errorMsg.textContent = '✅ Ya confirmaste con este código. Si necesitás hacer cambios, contactanos por WhatsApp.';
+                errorMsg.classList.add('show');
+                setTimeout(() => errorMsg.classList.remove('show'), 8000);
+                return;
+            }
+
+            if (GUEST_GROUPS[code]) {
+                loadGroup(code);
+                errorMsg.classList.remove('show');
+            } else {
+                errorMsg.textContent = 'Código inválido. Verificá que esté bien escrito o contactanos.';
+                errorMsg.classList.add('show');
+                setTimeout(() => errorMsg.classList.remove('show'), 5000);
+            }
+        }
+
+        function loadGroup(code) {
+            currentGroup = code;
+            const group = GUEST_GROUPS[code];
+            
+            document.getElementById('codeEntryStep').style.display = 'none';
+            document.getElementById('groupConfirmStep').style.display = 'block';
+            
+            if (group.guests.length === 1) {
+                document.getElementById('groupTitle').textContent = group.guests[0].name;
+            } else {
+                document.getElementById('groupTitle').textContent = `Grupo ${code}`;
+            }
+
+            const guestsList = document.getElementById('guestsList');
+            guestsList.innerHTML = group.guests.map((guest, index) => {
+                const dietary = [];
+                if (guest.kosher && guest.kosher.toUpperCase() === 'SI') dietary.push('🕎 Kosher');
+                if (guest.vegetariano && guest.vegetariano.toUpperCase() === 'SI') dietary.push('🥗 Vegetariano');
+                if (guest.vegano && guest.vegano.toUpperCase() === 'SI') dietary.push('🌱 Vegano');
+                
+                const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
+                
+                return `
+                <div class="guest-item">
+                    <div class="guest-name">
+                        ${guest.name}
+                    </div>
+                    ${dietary.length > 0 ? `
+                        <div class="guest-dietary">
+                            ${dietary.map(tag => `<span class="dietary-tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="guest-${index}-si" 
+                                   name="guest-${index}" 
+                                   value="si" 
+                                   required>
+                            <label for="guest-${index}-si">Sí, asistiré</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="guest-${index}-no" 
+                                   name="guest-${index}" 
+                                   value="no">
+                            <label for="guest-${index}-no">No podré asistir</label>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function goBack() {
+            document.getElementById('groupConfirmStep').style.display = 'none';
+            document.getElementById('codeEntryStep').style.display = 'block';
+            document.getElementById('inviteCode').value = '';
+            document.getElementById('rsvpForm').reset();
+            currentGroup = null;
+        }
+
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!currentGroup) return;
+
+            const group = GUEST_GROUPS[currentGroup];
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const comentarios = document.getElementById('comentarios').value;
+
+            const responses = group.guests.map((guest, index) => {
+                const attendance = document.querySelector(`input[name="guest-${index}"]:checked`);
+                const dietary = [];
+                if (guest.kosher && guest.kosher.toUpperCase() === 'SI') dietary.push('Kosher');
+                if (guest.vegetariano && guest.vegetariano.toUpperCase() === 'SI') dietary.push('Vegetariano');
+                if (guest.vegano && guest.vegano.toUpperCase() === 'SI') dietary.push('Vegano');
+                
+                const isChild = guest.quien && guest.quien.toLowerCase().includes('chico');
+                
+                return {
+                    nombre: guest.name,
+                    asiste: attendance ? (attendance.value === 'si' ? 'SI' : 'NO') : 'NO RESPONDE',
+                    tipo: isChild ? 'Niño' : 'Adulto',
+                    kosher: guest.kosher && guest.kosher.toUpperCase() === 'SI' ? 'SI' : 'NO',
+                    vegetariano: guest.vegetariano && guest.vegetariano.toUpperCase() === 'SI' ? 'SI' : 'NO',
+                    vegano: guest.vegano && guest.vegano.toUpperCase() === 'SI' ? 'SI' : 'NO'
+                };
+            });
+
+            // Datos a enviar al Google Apps Script
+            const dataToSend = {
+                codigo: currentGroup,
+                email: email,
+                telefono: telefono,
+                comentarios: comentarios || 'Sin comentarios',
+                invitados: responses
+            };
+
+            console.log('📤 Enviando a Apps Script:', dataToSend);
+
+            // Enviar a Google Apps Script
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxIl8f62e0Ip-WKoTmoUMtfw3TLK-VoHMm30OJ9JTFBOiQib7iqpc1dIU01k9m0WA/exec';
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend)
+            }).then(() => {
+                console.log('✅ Confirmación enviada exitosamente');
+                
+                // Marcar código como usado
+                localStorage.setItem(`codigo_usado_${currentGroup}`, 'true');
+                
+                // Ocultar formulario y mostrar pantalla de éxito
+                document.getElementById('groupConfirmStep').style.display = 'none';
+                document.getElementById('successScreen').style.display = 'block';
+                
+                // Scroll a la pantalla de éxito
+                document.getElementById('successScreen').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+                
+            }).catch(error => {
+                console.error('❌ Error al enviar:', error);
+                const errorMsg = document.getElementById('errorMessage');
+                errorMsg.textContent = 'Error al enviar. Intentá nuevamente.';
+                errorMsg.classList.add('show');
+                setTimeout(() => errorMsg.classList.remove('show'), 5000);
+            });
+        });
+
+        function copyCBU() {
+            const cbu = document.getElementById('cbu').textContent;
+            navigator.clipboard.writeText(cbu).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copiado!';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        function copyAlias() {
+            const alias = document.getElementById('alias').textContent;
+            navigator.clipboard.writeText(alias).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copiado!';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        function copyAliasMain() {
+            const alias = document.getElementById('alias-main').textContent;
+            navigator.clipboard.writeText(alias).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copiado!';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        function copyAliasCard() {
+            const alias = 'SEBANIELA.CASAMIENTO';
+            navigator.clipboard.writeText(alias).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copiado!';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Funciones para agregar a calendario
+        function addToGoogleCalendar() {
+            const eventDetails = {
+                text: 'Casamiento Sebastián & Daniela - Civil',
+                dates: '20260514T103000/20260514T113000',
+                location: 'Registro Civil Central, Uruguay 753, CABA',
+                details: 'Civil: 10:30hs - Registro Civil Central (Uruguay 753)%0AFiesta: 13:00hs - Basa BAR (Basavilbaso 1328)%0ADress Code: Vení como quieras%0AAlias: SEBANIELA.CASAMIENTO'
+            };
+            
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.text)}&dates=${eventDetails.dates}&location=${encodeURIComponent(eventDetails.location)}&details=${eventDetails.details}`;
+            window.open(url, '_blank');
+        }
+
+        function downloadICS() {
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Casamiento Sebastián & Daniela//ES
+BEGIN:VEVENT
+UID:${new Date().getTime()}@casamiento-sebaniela.com
+DTSTAMP:${formatDateICS(new Date())}
+DTSTART:20260514T103000
+DTEND:20260514T113000
+SUMMARY:Casamiento Sebastián & Daniela - Civil
+DESCRIPTION:Civil: 10:30hs - Registro Civil Central\\nFiesta: 13:00hs - Basa BAR\\nDress Code: Vení como quieras\\nAlias: SEBANIELA.CASAMIENTO
+LOCATION:Registro Civil Central, Uruguay 753, CABA
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio: Casamiento mañana
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:${new Date().getTime() + 1}@casamiento-sebaniela.com
+DTSTAMP:${formatDateICS(new Date())}
+DTSTART:20260514T130000
+DTEND:20260514T180000
+SUMMARY:Casamiento Sebastián & Daniela - Fiesta
+DESCRIPTION:Fiesta en Basa BAR\\nDress Code: Vení como quieras\\nAlias: SEBANIELA.CASAMIENTO
+LOCATION:Basa BAR, Basavilbaso 1328, CABA
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio: Fiesta en 2 horas
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'casamiento-sebaniela.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function formatDateICS(date) {
+            return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        }
+
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.section').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+
+        window.addEventListener('load', loadGuestsFromSheet);
+    </script>
+</body>
+</html>
